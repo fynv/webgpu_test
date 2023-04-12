@@ -17,8 +17,8 @@ export class CanvasContext
         const canvasConfig = {
             device: engine_ctx.device,
             alphaMode: "opaque",
-            format: 'bgra8unorm',
-            viewFormats: ['bgra8unorm-srgb'],
+            format: 'rgba8unorm',
+            viewFormats: ['rgba8unorm-srgb'],
             usage:  GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.COPY_SRC
         };
         this.context.configure(canvasConfig);

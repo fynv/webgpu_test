@@ -100,7 +100,7 @@ fn main(@location(0) inColor: vec3<f32>) -> @location(0) vec4<f32>
     };
 
     const colorState = {
-        format: 'bgra8unorm-srgb',
+        format: 'rgba8unorm-srgb',
         writeMask: GPUColorWrite.ALL
     };
 
@@ -142,7 +142,7 @@ fn main(@location(0) inColor: vec3<f32>) -> @location(0) vec4<f32>
 
     const render = () =>{
         let colorTexture = canvas_ctx.context.getCurrentTexture();
-        let colorTextureView = colorTexture.createView({ format: "bgra8unorm-srgb"});
+        let colorTextureView = colorTexture.createView({ format: "rgba8unorm-srgb"});
 
         let colorAttachment =  {
             view: colorTextureView,
