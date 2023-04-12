@@ -154,6 +154,7 @@ fn main(@location(0) vNorm: vec3<f32>, @location(1) vWorldPos: vec3<f32>) -> @lo
 
     const render = () =>{
         controls.update();
+        camera.updateWorldMatrix(false, false);
         camera.updateConstant();
 
         let colorTexture = canvas_ctx.context.getCurrentTexture();
