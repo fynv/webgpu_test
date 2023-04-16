@@ -36,16 +36,16 @@ export async function test()
         code: `
 struct VSOut 
 {
-    @builtin(position) Position: vec4<f32>,
-    @location(0) color: vec3<f32>,
+    @builtin(position) Position: vec4f,
+    @location(0) color: vec3f,
 };
 
 @vertex
-fn main(@location(0) inPos: vec3<f32>,
-        @location(1) inColor: vec3<f32>) -> VSOut 
+fn main(@location(0) inPos: vec3f,
+        @location(1) inColor: vec3f) -> VSOut 
 {
     var vsOut: VSOut;
-    vsOut.Position = vec4<f32>(inPos, 1.0);
+    vsOut.Position = vec4(inPos, 1.0);
     vsOut.color = inColor;
     return vsOut;
 }`
@@ -57,9 +57,9 @@ fn main(@location(0) inPos: vec3<f32>,
 var<uniform> k: f32;
 
 @fragment
-fn main(@location(0) inColor: vec3<f32>) -> @location(0) vec4<f32> 
+fn main(@location(0) inColor: vec3f) -> @location(0) vec4f 
 {
-    return vec4<f32>(inColor * k, 1.0);
+    return vec4(inColor * k, 1.0);
 }`                    
     });
 

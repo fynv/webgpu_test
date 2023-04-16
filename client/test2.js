@@ -65,14 +65,14 @@ var<uniform> uModel: Model;
 
 struct VSOut 
 {
-    @builtin(position) Position: vec4<f32>,
-    @location(0) norm: vec3<f32>,
-    @location(1) worldPos: vec3<f32>,
+    @builtin(position) Position: vec4f,
+    @location(0) norm: vec3f,
+    @location(1) worldPos: vec3f,
 };
 
 @vertex
-fn main(@location(0) aPos: vec3<f32>,
-        @location(1) aNorm: vec3<f32>) -> VSOut 
+fn main(@location(0) aPos: vec3f,
+        @location(1) aNorm: vec3f) -> VSOut 
 {
     var vsOut: VSOut;
     let world_pos = uModel.modelMat * vec4(aPos, 1.0);
@@ -87,11 +87,11 @@ fn main(@location(0) aPos: vec3<f32>,
     let fragModule = engine_ctx.device.createShaderModule({
         code: `
 @fragment      
-fn main(@location(0) vNorm: vec3<f32>, @location(1) vWorldPos: vec3<f32>) -> @location(0) vec4<f32> 
+fn main(@location(0) vNorm: vec3f, @location(1) vWorldPos: vec3f) -> @location(0) vec4f
 {
     let k = vNorm.y * 0.5 + 0.5;    
-    let col = mix(vec3<f32>(0.1, 0.1, 0.1), vec3<f32>(0.6, 0.6, 0.8), k);
-    return vec4<f32>(col, 1.0);
+    let col = mix(vec3(0.1, 0.1, 0.1), vec3(0.6, 0.6, 0.8), k);
+    return vec4(col, 1.0);
 }`     
     });
 
