@@ -6,6 +6,7 @@ export class CanvasContext
         this.context = null;
         this.depthTexture = null;
         this.depthTextureView = null;
+        this.resized = false;
     }
 
     async initialize()
@@ -35,5 +36,6 @@ export class CanvasContext
         };
         this.depthTexture = engine_ctx.device.createTexture(depthTextureDesc);
         this.depthTextureView = this.depthTexture.createView();
+        this.resized = true;
     }
 }

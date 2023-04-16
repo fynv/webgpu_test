@@ -7,12 +7,20 @@ import { OrbitControls } from "./controls/OrbitControls.js"
 export async function test()
 {
     const canvas = document.getElementById('gfx');
-    canvas.width = 640;
-    canvas.height = 640;
+    canvas.style.cssText = "position:absolute; width: 100%; height: 100%;";       
 
     const engine_ctx = new EngineContext();
     const canvas_ctx = new CanvasContext(canvas);
     await canvas_ctx.initialize();
+    
+    const size_changed = ()=>{
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+        canvas_ctx.resize();
+    };
+    
+    let observer = new ResizeObserver(size_changed);
+    observer.observe(canvas);
 
     let loader = new GLTFLoader();
     let model = await loader.load("shaderBall.glb");
@@ -154,6 +162,12 @@ fn main(@location(0) vNorm: vec3<f32>, @location(1) vWorldPos: vec3<f32>) -> @lo
 
     const render = () =>{
         controls.update();
+        if (canvas_ctx.resized)
+        {            
+            camera.aspect = canvas.width/canvas.height;
+            camera.updateProjectionMatrix();
+            canvas_ctx.resized = false;
+        }
         camera.updateWorldMatrix(false, false);
         camera.updateConstant();
 
