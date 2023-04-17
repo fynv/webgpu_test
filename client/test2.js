@@ -132,7 +132,7 @@ fn main(@location(0) vNorm: vec3f, @location(1) vWorldPos: vec3f) -> @location(0
     };
 
     const colorState = {
-        format: 'rgba8unorm-srgb',
+        format: canvas_ctx.view_format,
         writeMask: GPUColorWrite.ALL
     };
 
@@ -172,7 +172,7 @@ fn main(@location(0) vNorm: vec3f, @location(1) vWorldPos: vec3f) -> @location(0
         camera.updateConstant();
 
         let colorTexture = canvas_ctx.context.getCurrentTexture();
-        let colorTextureView = colorTexture.createView({ format: "rgba8unorm-srgb"});
+        let colorTextureView = colorTexture.createView({ format: canvas_ctx.view_format});
 
         let colorAttachment =  {
             view: colorTextureView,

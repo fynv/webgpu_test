@@ -7,6 +7,7 @@ export class CanvasContext
         this.depthTexture = null;
         this.depthTextureView = null;
         this.resized = false;
+        this.view_format = 'rgba8unorm-srgb';
     }
 
     async initialize()
@@ -15,11 +16,16 @@ export class CanvasContext
         await engine_ctx.initialize();
 
         this.context = this.canvas.getContext('webgpu');
+        const presentationFormat = navigator.gpu.getPreferredCanvasFormat();
+        if (presentationFormat == "bgra8unorm")
+        {
+            this.view_format = 'bgra8unorm-srgb';
+        }        
         const canvasConfig = {
             device: engine_ctx.device,
             alphaMode: "opaque",
-            format: 'rgba8unorm',
-            viewFormats: ['rgba8unorm-srgb'],
+            format: presentationFormat,
+            viewFormats: [this.view_format],
             usage:  GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.COPY_SRC
         };
         this.context.configure(canvasConfig);
