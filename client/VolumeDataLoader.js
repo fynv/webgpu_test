@@ -3,12 +3,8 @@ import { VolumeData } from "./VolumeData.js"
 
 export class VolumeDataLoader
 {
-    static async LoadRawVolumeFile(filename, size, spacing =  new Vector3(0.001, 0.001, 0.001))
-    {  
-        let res = await fetch("cthead.raw");
-        let blob = await res.blob();
-        let arrBuf = await blob.arrayBuffer();              
-        
+    static LoadVolume(arrBuf, size, spacing =  new Vector3(0.001, 0.001, 0.001))
+    {
         let data = new VolumeData();
         data.size = size;
         data.spacing = spacing;
@@ -28,4 +24,16 @@ export class VolumeDataLoader
         
         return data;
     }
+
+    static async LoadRawVolumeFile(filename, size, spacing =  new Vector3(0.001, 0.001, 0.001))
+    {  
+        let res = await fetch("cthead.raw");
+        let blob = await res.blob();
+        let arrBuf = await blob.arrayBuffer();   
+        
+        return VolumeDataLoader.LoadVolume(arrBuf, size, spacing);
+
+    }
+
+    
 }
