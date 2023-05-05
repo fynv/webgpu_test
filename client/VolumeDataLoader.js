@@ -4,16 +4,16 @@ import { VolumeData } from "./VolumeData.js"
 export class VolumeDataLoader
 {
     static LoadVolume(arrBuf, size, spacing =  new Vector3(0.001, 0.001, 0.001))
-    {
+    {       
         let data = new VolumeData();
         data.size = size;
         data.spacing = spacing;
         data.texture = engine_ctx.device.createTexture({
-            size: size,
+            size: { width: size.x, height: size.y, depthOrArrayLayers: size.z },
             dimension: "3d",
             format: 'r8unorm',
             usage: GPUTextureUsage.TEXTURE_BINDING | GPUTextureUsage.COPY_DST,
-        });      
+        });
         
         engine_ctx.queue.writeTexture(
             { texture: data.texture },
