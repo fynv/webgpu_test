@@ -77,6 +77,7 @@ fn main(@location(0) aPos: vec3f,
     var vsOut: VSOut;
     let world_pos = uModel.modelMat * vec4(aPos, 1.0);
     vsOut.Position = uCamera.projMat * (uCamera.viewMat * world_pos);
+    vsOut.Position.z = (vsOut.Position.z + vsOut.Position.w)*0.5;
     vsOut.worldPos = world_pos.xyz;
     let world_norm = uModel.normalMat * vec4(aNorm, 0.0);
     vsOut.norm = world_norm.xyz;
